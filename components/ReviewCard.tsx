@@ -1,6 +1,6 @@
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 interface ReviewCardProps {
   name: string;
@@ -8,9 +8,10 @@ interface ReviewCardProps {
   rating: number;
   memberSince?: string;
   showFullHeader?: boolean;
+  onViewMore?: () => void;
 }
 
-export function ReviewCard({ name, text, rating, memberSince = '20xx', showFullHeader = false }: ReviewCardProps) {
+export function ReviewCard({ name, text, rating, memberSince = '20xx', showFullHeader = false, onViewMore }: ReviewCardProps) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -53,14 +54,24 @@ export function ReviewCard({ name, text, rating, memberSince = '20xx', showFullH
           </Text>
         </View>
 
-        {showFullHeader && (
-          <Text style={{ 
-            color: isDark ? '#4a9eff' : '#007AFF', 
-            fontSize: 14,
-            fontWeight: '600'
-          }}>
-            
-          </Text>
+        {showFullHeader && onViewMore && (
+          <Pressable 
+            onPress={onViewMore}
+            style={{
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              borderRadius: 8,
+              backgroundColor: isDark ? '#222' : '#e8e8e8',
+            }}
+          >
+            <Text style={{ 
+              color: isDark ? '#4a9eff' : '#007AFF', 
+              fontSize: 14,
+              fontWeight: '600'
+            }}>
+              Voir plus
+            </Text>
+          </Pressable>
         )}
       </View>
 

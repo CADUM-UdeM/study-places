@@ -1,11 +1,12 @@
 import { ReviewCard } from '@/components/ReviewCard';
 import { ReviewsModal } from '@/components/ReviewsModal';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Constants from 'expo-constants';
 import { Bot } from 'lucide-react-native';
 import React, { useEffect, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 
 
@@ -74,8 +75,57 @@ useEffect(() => {
 
 
   return (
+    <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', paddingTop: 50}}>
     <ScrollView style={{ flex: 1, padding: 16,backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' }}>
-        <View style={{ flex: 1, maxHeight: 80, marginTop: 64}}>
+        <View style={{width: '100%', alignItems: 'center', height: 200, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12 }}>
+        
+
+        </View>
+        <View>
+            <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{ fontSize: 24, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
+                Endroit
+            </Text>
+            <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 8 }}>
+                <View style={{ 
+                    backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0',
+                    paddingHorizontal: 12,
+                    paddingVertical: 12,
+                    borderRadius: 20,
+                    marginTop: 16,
+                }}>
+                    <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
+                        Catégorie
+                    </Text>
+                </View>
+
+            </View>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, marginLeft:8 }}>
+                <View style={{width: "50%", height: 36, borderRadius: 12, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
+                <Ionicons name="thumbs-up" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
+                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
+                    99%
+                </Text>
+                <View style={{ width: 1, height: 20, backgroundColor: colorScheme === 'dark' ? '#444' : '#ccc', marginHorizontal: 8 }} />
+                <Ionicons name="logo-google" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
+                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
+                    4.8/5
+                </Text>
+                </View>
+
+            </View>
+        </View>
+        <View style={{width: '100%', alignItems: 'center', height: 200, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+        </View>
+        <View style={{width: '100%', alignItems: 'center', height: 100, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+        </View>
+        <View>
+        <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
+            Résumé des avis
+        </Text>
+        </View>
+        <View style={{ flex: 1, maxHeight: 80, marginTop: 16, marginBottom: 16 }}>
             
             {responses.map((resp, index) => (
                 <View
@@ -85,7 +135,6 @@ useEffect(() => {
                     paddingHorizontal: 12,
                     minHeight: 44,
                     borderRadius: 12,
-                    marginBottom: 8,
                     backgroundColor: colorScheme === 'dark' ? '#222' : '#ccc',
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -111,8 +160,6 @@ useEffect(() => {
         </View>
         
         <View>
-            <View style={{ height: 1, backgroundColor: colorScheme === 'dark' ? '#444' : '#ccc', marginVertical: 8 }} />
-            
             {/* Latest review card */}
             <ReviewCard
               name={reviews[0].name}
@@ -120,26 +167,26 @@ useEffect(() => {
               rating={reviews[0].rating}
               memberSince="2024"
               showFullHeader={true}
+              onViewMore={() => setModalVisible(true)}
             />
-            
-            {/* Show all reviews button */}
-            <Pressable 
-              onPress={() => setModalVisible(true)}
-              style={{ 
-                padding: 12,
-                borderRadius: 8,
-                backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0',
-                alignItems: 'center'
-              }}
-            >
-              <Text style={{ 
-                color: colorScheme === 'dark' ? 'white' : 'black', 
-                fontWeight: '600',
-                fontSize: 16
-              }}>
-                Voir les autres avis...
-              </Text>
-            </Pressable>
+        </View>
+
+        <View style={{ }}>
+            <Text style={{ fontSize: 20, fontWeight: '700',  marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
+                Promotions en cours
+            </Text>
+            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+            </View>
+
+        </View>
+
+        <View style={{ marginBottom: 32 }}>
+            <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
+                Achalandage
+            </Text>
+            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+            </View>
+
         </View>
         
         {/* Reviews Modal */}
@@ -149,6 +196,7 @@ useEffect(() => {
           reviews={reviews}
         />
     </ScrollView>
+    </View>
   );
 }
 
