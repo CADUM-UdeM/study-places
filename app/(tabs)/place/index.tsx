@@ -5,7 +5,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import Constants from 'expo-constants';
 import { Bot } from 'lucide-react-native';
 import React, { useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 
 
 
@@ -74,7 +74,7 @@ useEffect(() => {
 
 
   return (
-    <View style={{ flex: 1, padding: 16}}>
+    <ScrollView style={{ flex: 1, padding: 16,backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' }}>
         <View style={{ flex: 1, maxHeight: 80, marginTop: 64}}>
             
             {responses.map((resp, index) => (
@@ -126,7 +126,6 @@ useEffect(() => {
             <Pressable 
               onPress={() => setModalVisible(true)}
               style={{ 
-                marginTop: 12,
                 padding: 12,
                 borderRadius: 8,
                 backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0',
@@ -149,7 +148,7 @@ useEffect(() => {
           onClose={() => setModalVisible(false)}
           reviews={reviews}
         />
-    </View>
+    </ScrollView>
   );
 }
 

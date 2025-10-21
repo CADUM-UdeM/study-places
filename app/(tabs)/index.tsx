@@ -1,13 +1,17 @@
+import Header from '@/components/Header';
 import { useRouter } from 'expo-router';
-import { Bell, Circle } from 'lucide-react-native';
-import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 
 
 
 export default function MainScreen() {
 
-const router = useRouter();
+  const router = useRouter();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  const [selected, setSelected] = useState<string>("Tous");
 
 
 
@@ -15,37 +19,66 @@ const router = useRouter();
 
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+    <View style={{ flex: 1 }}>
+      <Header userName="Kevin" welcomeMessage="Ravis de vous revoir !" />
+      
+      <ScrollView
+        style={{ flex: 1, paddingTop: 130 }}
+        contentContainerStyle={{ flexGrow: 1 }}
       >
-      <View style={{
-        position: "absolute",
-        width: "100%",
-        justifyContent: "center",
-        padding: 20,
-        top : 50,
-      }}>
-      <Circle size={64} color="#4a90e2"style={{position:"absolute", left:0, top:0}} />
-      <Text style={{color:"white", fontWeight:800, fontSize:24, position:"absolute", top:5, left:70}}>Bienvenue Kevin !</Text>
-      <Text style={{color:"white", fontSize:16, position:"absolute", top:35, left:70}}>Ravis de vous revoir !</Text>
-      <Bell size={32} color="white" style={{position:"absolute", right:5, top:15}} />
-      </View>
+        {/* Horizontal scroll for categories */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ flexGrow: 0 }}
+        >
+          <View style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            paddingVertical: 20,
+            gap: 10,
+          }}>
+            {["Tous", "Cafés", "Bibliothèques", "Parcs"].map((category) => (
+              <TouchableOpacity key={category} onPress={() => setSelected(category)}>
+                <View style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 8,
+                  backgroundColor: selected === category ? "#7f3b00ff" : (isDark ? "#333" : "#777"),
+                  borderRadius: 20,
+                }}>
+                  <Text style={{ fontWeight: '600', color:"white"}}>{category}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
 
-      <TouchableOpacity onPress={() => router.push("/(tabs)/place")}>
-        <View style={{
-          maxWidth: 300,
-          alignSelf: "center",
-          alignItems: "flex-start",
-          justifyContent: "center",
-          padding: 20,
-          borderRadius: 16,
-          marginTop: 20,
-          backgroundColor: "#4a90e2"
-        }}>
-          <Text style={{color:"white", fontWeight:600}}>Place X</Text>
+        <View>
+          <Text style={{
+            fontSize: 24,
+            fontWeight: '700',
+            marginLeft: 24,
+            color: isDark ? 'white' : 'black',
+          }}>
+            {selected !== "Tous" ? selected : "Lieux"} populaires
+          </Text>
         </View>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity onPress={() => router.push("/(tabs)/place")}>
+          <View style={{
+            width: "90%",
+            alignSelf: "center",
+            alignItems: "flex-start",
+            padding: 20,
+            borderRadius: 16,
+            marginTop: 20,
+            height: 200,
+            backgroundColor: "#7f3b00ff"
+          }}>
+            <Text style={{color:"white", fontWeight:600}}>Place X</Text>
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
   );
 }
 
