@@ -19,7 +19,14 @@ const [modalVisible, setModalVisible] = useState(false);
 const colorScheme = useColorScheme();
 
 const reviews = [
-    { name:"Arsene Wenger", text: "Great product, really enjoyed using it!", rating: 5 },
+  { name:"Arsene Wenger", text: "Produit exceptionnel, dépassé toutes mes attentes!", rating: 5 },
+  { name:"Arsene Wenger", text: "Qualité incroyable, je recommande vivement!", rating: 5 },
+  { name:"Arsene Wenger", text: "Excellent rapport qualité-prix, très satisfait!", rating: 5 },
+  { name:"Arsene Wenger", text: "Parfait pour mes besoins, rien à redire!", rating: 5 },
+  { name:"Arsene Wenger", text: "Service impeccable et produit de grande qualité!", rating: 5 },
+  { name:"Arsene Wenger", text: "Une expérience formidable, je rachèterai sans hésiter!", rating: 5 },
+  { name:"Arsene Wenger", text: "Vraiment top, exactement ce que je cherchais!", rating: 5 },
+  { name:"Arsene Wenger", text: "Great product, really enjoyed using it!", rating: 5 },
     { name:"Arsene Wenger",text: "It was okay, could be better.", rating: 3 },
     { name:"Arsene Wenger",text: "Did not like it at all.", rating: 1 },
     { name:"Arsene Wenger",text: "Exceeded my expectations!", rating: 5 },
@@ -48,7 +55,7 @@ useEffect(() => {
         const response = await result.response;
         const text = response.text();
 
-        setResponses((prevResponses) => [...prevResponses, `Résumé IA: ${text}`]);
+        setResponses((prevResponses) => [...prevResponses, text]);
     } catch (error) {
         console.error("Error generating summary:", error);
         setResponses((prev) => [...prev, `Error: ${error}`]);
@@ -83,6 +90,7 @@ useEffect(() => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    maxHeight: 60,
                   }}
                 >
                   <Bot size={24} color={colorScheme === 'dark' ? 'white' : 'black'} />
