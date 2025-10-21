@@ -77,7 +77,18 @@ useEffect(() => {
   return (
     <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', paddingTop: 50}}>
     <ScrollView style={{ flex: 1, padding: 16,backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' }}>
-        <View style={{width: '100%', alignItems: 'center', height: 200, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12 }}>
+        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12 }}>
+            <View style={{ position: 'absolute', top: 16, left: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
+                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
+                Ouvre à 08:00
+                </Text>
+            </View>
+
+            <View style={{ position: 'absolute', top: 16, right: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
+                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '800' }}>
+                $
+                </Text>
+            </View>
         
 
         </View>
