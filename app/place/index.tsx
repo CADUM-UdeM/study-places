@@ -7,8 +7,9 @@ import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import { Bot } from 'lucide-react-native';
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 export default function PlaceScreen() {
@@ -19,6 +20,7 @@ const [responses, setResponses] = useState<string[]>([]);
 const [loading, setLoading] = useState(false);
 const [modalVisible, setModalVisible] = useState(false);
 const colorScheme = useColorScheme();
+const [liked, setLiked] = useState(false);
 
 const reviews = [
   { name:"Arsene Wenger", text: "Produit exceptionnel, dépassé toutes mes attentes!", rating: 5 },
@@ -36,6 +38,14 @@ const reviews = [
     { name:"Arsene Wenger",text: "Average quality, nothing special.", rating: 3 },
     { name:"Arsene Wenger",text: "Fantastic experience, will buy again!", rating: 5 },
 ];
+
+const sommeAvis = () => {
+  let total = 0;
+  reviews.forEach((review) => {
+    total += review.rating;
+  });
+  return (total / reviews.length).toFixed(1);
+}
 
 const router=useRouter();
 useEffect(() => {
@@ -72,15 +82,26 @@ useEffect(() => {
       
 }, []);
 
+  const insets = useSafeAreaInsets();
+  const getTabBarHeight = () => {
+    if (Platform.OS === 'android') {
+      // If bottom inset is 0, device uses button navigation
+      // If bottom inset > 0, device uses gesture navigation
+      const hasButtonNavigation = insets.bottom === 0;
+      return hasButtonNavigation ? 60 : 55 + insets.bottom;
+    }
+    return undefined; // Let iOS handle it automatically
+  };
+
 
 
 
 
   return (
-    <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', paddingTop: 50}}>
+    <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', paddingTop: Platform.OS === 'ios' ? 0 : 25, paddingBottom: Platform.OS=== "android" && insets.bottom > 0 ? insets.bottom : 0}}>
      
     <ScrollView style={{ flex: 1, padding: 16,backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' }}>
-        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16 }}>
+        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop:16 }}>
             <View style={{ position: 'absolute', top: 16, right: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
                 <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
                 Ouvre à 08:00
@@ -111,21 +132,33 @@ useEffect(() => {
             </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, marginLeft:8 }}>
-                <View style={{width: "50%", height: 36, borderRadius: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
-                <Ionicons name="thumbs-up" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
-                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
-                    99%
+                <View style={{width: 160, height: 36, borderRadius: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
+                <TouchableOpacity 
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }} 
+                  onPress={() => setLiked(!liked)}
+                >
+                <Ionicons 
+                  name={"thumbs-up"} 
+                  size={20} 
+                  color={liked ? (colorScheme === 'dark' ? '#4CAF50' : '#2E7D32') : (colorScheme === 'dark' ? 'white' : 'black')} 
+                />
+                <Text style={{ color: liked ? (colorScheme === 'dark' ? '#4CAF50' : '#2E7D32') : (colorScheme === 'dark' ? 'white' : 'black'), fontWeight: '600' }}>
+                  99%
                 </Text>
-                <View style={{ width: 1, height: 20, backgroundColor: colorScheme === 'dark' ? '#444' : '#ccc', marginHorizontal: 8 }} />
+                </TouchableOpacity>
+                <View style={{ width: 1, height: 20, backgroundColor: colorScheme === 'dark' ? '#444' : '#ccc'}} />
                 <Ionicons name="logo-google" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
                 <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
-                    4.8/5
+                    {sommeAvis()}/5
                 </Text>
                 </View>
 
             </View>
         </View>
-        <View style={{width: '100%', alignItems: 'center', height: 200, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop: 16 }}>
+        <View style={{width: '100%', alignItems: 'center', height: 100, backgroundColor: colorScheme == 'dark' ? '#222' : '#f0f0f0',borderRadius: 16, marginTop: 16 }}>
+          <Text style={{ fontSize: 16, fontWeight: '400',  color: colorScheme === 'dark' ? 'white' : 'black', padding:16 }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Text>
         </View>
         <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
             Localisation
@@ -165,7 +198,7 @@ useEffect(() => {
                     paddingHorizontal: 12,
                     minHeight: 44,
                     borderRadius: 16,
-                    backgroundColor: colorScheme === 'dark' ? '#222' : '#ccc',
+                    backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0',
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',

@@ -60,7 +60,7 @@ export function ReviewCard({ name, text, rating, memberSince = '20xx', showFullH
             style={{
               paddingHorizontal: 12,
               paddingVertical: 8,
-              borderRadius: 8,
+              borderRadius: 16,
               backgroundColor: isDark ? '#222' : '#e8e8e8',
             }}
           >
@@ -90,7 +90,7 @@ export function ReviewCard({ name, text, rating, memberSince = '20xx', showFullH
         fontSize: 14,
         marginTop: 8
       }}>
-        Rating: {rating}/5
+        Note: {rating}/5
       </Text>
     </View>
   );

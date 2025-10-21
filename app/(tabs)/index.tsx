@@ -63,7 +63,7 @@ export default function MainScreen() {
             {selected !== "Tous" ? selected : "Lieux"} populaires
           </Text>
         </View>
-        <TouchableOpacity onPress={() => router.push("/(tabs)/place")}>
+        <TouchableOpacity onPress={() => router.push("/place")}>
           <View style={{
             width: "90%",
             alignSelf: "center",
