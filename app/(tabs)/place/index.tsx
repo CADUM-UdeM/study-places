@@ -4,10 +4,11 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
 import { Bot } from 'lucide-react-native';
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
-
+import MapView, { Marker } from 'react-native-maps';
 
 
 export default function PlaceScreen() {
@@ -36,6 +37,7 @@ const reviews = [
     { name:"Arsene Wenger",text: "Fantastic experience, will buy again!", rating: 5 },
 ];
 
+const router=useRouter();
 useEffect(() => {
     const resumeReviews = async () => {
         if (!GEMINI_API_KEY) {
@@ -76,19 +78,15 @@ useEffect(() => {
 
   return (
     <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', paddingTop: 50}}>
+     
     <ScrollView style={{ flex: 1, padding: 16,backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' }}>
-        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12 }}>
-            <View style={{ position: 'absolute', top: 16, left: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
+        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16 }}>
+            <View style={{ position: 'absolute', top: 16, right: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
                 <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
                 Ouvre à 08:00
                 </Text>
             </View>
 
-            <View style={{ position: 'absolute', top: 16, right: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
-                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '800' }}>
-                $
-                </Text>
-            </View>
         
 
         </View>
@@ -113,7 +111,7 @@ useEffect(() => {
             </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, marginLeft:8 }}>
-                <View style={{width: "50%", height: 36, borderRadius: 12, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
+                <View style={{width: "50%", height: 36, borderRadius: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
                 <Ionicons name="thumbs-up" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
                 <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
                     99%
@@ -127,9 +125,30 @@ useEffect(() => {
 
             </View>
         </View>
-        <View style={{width: '100%', alignItems: 'center', height: 200, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+        <View style={{width: '100%', alignItems: 'center', height: 200, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop: 16 }}>
         </View>
-        <View style={{width: '100%', alignItems: 'center', height: 100, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+        <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
+            Localisation
+        </Text>
+        <View style={{width: '100%', height: 120, borderRadius: 16, marginTop: 16, overflow: 'hidden' }}>
+            
+          <MapView 
+            style={{ width: '100%', height: '100%' }}
+            initialRegion={{
+              latitude: 45.5017,
+              longitude: -73.5673,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}
+            zoomEnabled={false}
+            scrollEnabled={false}
+          >
+            <Marker 
+              coordinate={{ latitude: 45.5017, longitude: -73.5673 }}
+              title="Endroit"
+              description="Lieu d'étude"
+            />
+          </MapView>
         </View>
         <View>
         <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
@@ -145,7 +164,7 @@ useEffect(() => {
                     paddingVertical: 10,
                     paddingHorizontal: 12,
                     minHeight: 44,
-                    borderRadius: 12,
+                    borderRadius: 16,
                     backgroundColor: colorScheme === 'dark' ? '#222' : '#ccc',
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -186,7 +205,7 @@ useEffect(() => {
             <Text style={{ fontSize: 20, fontWeight: '700',  marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
                 Promotions en cours
             </Text>
-            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop: 16 }}>
             </View>
 
         </View>
@@ -195,7 +214,7 @@ useEffect(() => {
             <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
                 Achalandage
             </Text>
-            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 12, marginTop: 16 }}>
+            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop: 16 }}>
             </View>
 
         </View>
