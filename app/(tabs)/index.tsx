@@ -12,6 +12,7 @@ export default function MainScreen() {
   const isDark = colorScheme === 'dark';
 
   const [selected, setSelected] = useState<string>("Tous");
+  const ids = ["1", "2", "3", "4"];
 
 
 
@@ -63,7 +64,9 @@ export default function MainScreen() {
             {selected !== "Tous" ? selected : "Lieux"} populaires
           </Text>
         </View>
-        <TouchableOpacity onPress={() => router.push("/place")}>
+
+      {ids.map((id) => (
+        <TouchableOpacity key={id} onPress={() => {router.push({ pathname: "/place", params: { id:id} });}}>
           <View style={{
             width: "90%",
             alignSelf: "center",
@@ -74,9 +77,10 @@ export default function MainScreen() {
             height: 200,
             backgroundColor: "#7f3b00ff"
           }}>
-            <Text style={{color:"white", fontWeight:600}}>Place X</Text>
+            <Text style={{color:"white", fontWeight:600}}>Place {id}</Text>
           </View>
         </TouchableOpacity>
+      ))}
       </ScrollView>
     </View>
   );

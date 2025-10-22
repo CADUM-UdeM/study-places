@@ -37,7 +37,7 @@ export default function MapPage(){
             <ScrollView
                       horizontal
                       showsHorizontalScrollIndicator={false}
-                      style={{ flexGrow: 0 , position: 'absolute', top: 100}}
+                      style={{ flexGrow: 0 , position: 'absolute', top: 85}}
                     >
                     
                       <View style={{

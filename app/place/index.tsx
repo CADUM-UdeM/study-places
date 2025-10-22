@@ -4,7 +4,8 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Constants from 'expo-constants';
-import { useRouter } from 'expo-router';
+import { Image } from 'expo-image';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Bot } from 'lucide-react-native';
 import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -21,6 +22,11 @@ const [loading, setLoading] = useState(false);
 const [modalVisible, setModalVisible] = useState(false);
 const colorScheme = useColorScheme();
 const [liked, setLiked] = useState(false);
+const params = useLocalSearchParams();
+const now = new Date();
+const currentHour = now.getHours();
+
+console.log("PlaceScreen params:", params);
 
 const reviews = [
   { name:"Arsene Wenger", text: "Produit exceptionnel, dépassé toutes mes attentes!", rating: 5 },
@@ -39,12 +45,38 @@ const reviews = [
     { name:"Arsene Wenger",text: "Fantastic experience, will buy again!", rating: 5 },
 ];
 
+const fakedata = {
+  id: params.id || "1",
+  name: "Endroit",
+  category: "Lieu d'étude",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  horaire : {"open": "08:00", "close": "22:00"},
+  ratingApp: "99%",
+  ratingGoogle: 4.7,
+  avis: reviews,
+  promotions: [
+    { id: "promo1", title: "10% de réduction sur les boissons", description: "Profitez de 10% de réduction sur toutes les boissons entre 14h et 16h." },
+    { id: "promo2", title: "Heure heureuse", description: "Achetez-en un, obtenez-en un gratuit sur une sélection de snacks de 15h à 17h." },
+  ],
+  achalandage: [
+    { time: "08:00", level: "Faible" },
+    { time: "10:00", level: "Moyen" },
+    { time: "12:00", level: "Élevé" },
+    { time: "14:00", level: "Moyen" },
+    { time: "16:00", level: "Élevé" },
+    { time: "18:00", level: "Moyen" },
+    { time: "20:00", level: "Faible" },
+  ],
+  localisation: { latitude: 45.5017, longitude: -73.5673 },
+}
+
+
 const sommeAvis = () => {
   let total = 0;
-  reviews.forEach((review) => {
+  fakedata.avis.forEach((review) => {
     total += review.rating;
   });
-  return (total / reviews.length).toFixed(1);
+  return (total / fakedata.avis.length).toFixed(1);
 }
 
 const router=useRouter();
@@ -59,9 +91,10 @@ useEffect(() => {
     try {
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        
 
         const prompt = `Summarize the following reviews in a concise manner in one line max in french and very efficiently with no yapping:\n\n` +
-            reviews.map((r, i) => `Review ${i + 1}: "${r.text}" (Rating: ${r.rating}/5)`).join('\n') +
+            fakedata.avis.map((r, i) => `Review ${i + 1}: "${r.text}" (Rating: ${r.rating}/5)`).join('\n') +
             `\n\nSummary:`;
 
         const result = await model.generateContent(prompt);
@@ -83,15 +116,6 @@ useEffect(() => {
 }, []);
 
   const insets = useSafeAreaInsets();
-  const getTabBarHeight = () => {
-    if (Platform.OS === 'android') {
-      // If bottom inset is 0, device uses button navigation
-      // If bottom inset > 0, device uses gesture navigation
-      const hasButtonNavigation = insets.bottom === 0;
-      return hasButtonNavigation ? 60 : 55 + insets.bottom;
-    }
-    return undefined; // Let iOS handle it automatically
-  };
 
 
 
@@ -99,14 +123,32 @@ useEffect(() => {
 
   return (
     <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', paddingTop: Platform.OS === 'ios' ? 0 : 25, paddingBottom: Platform.OS=== "android" && insets.bottom > 0 ? insets.bottom : 0}}>
+
+      <View style={{
+        height: 50,
+      }}>
+        <TouchableOpacity onPress={() => router.back()} style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
+          <Ionicons name="arrow-back" size={35} color={colorScheme === 'dark' ? 'white' : 'black'} />
+        </TouchableOpacity>
+      </View>
      
     <ScrollView style={{ flex: 1, padding: 16,backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' }}>
-        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop:16 }}>
-            <View style={{ position: 'absolute', top: 16, right: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20 }}>
-                <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
-                Ouvre à 08:00
-                </Text>
+        <View style={{width: '100%', alignItems: 'center', height: 215, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16 }}>
+          <Image
+                source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSftXbBNrXN1Fjw2XJFCOSyG37x81cZ-RPqQg&s"
+                style={{ width: "100%", height: 215, resizeMode: 'cover', borderRadius: 16 }}
+              />
+            
+            <View style={{ position: 'absolute', top: 16, right: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20, alignItems: 'center' }}>
+              <TouchableOpacity>
+              <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
+                {currentHour >= parseInt(fakedata.horaire.open.split(":")[0]) && currentHour < parseInt(fakedata.horaire.close.split(":")[0]) ? "Ferme à "+ fakedata.horaire.close : "Ouvre à " + fakedata.horaire.open}
+              </Text>
+              </TouchableOpacity>
             </View>
+            
+
+          
 
         
 
@@ -114,9 +156,10 @@ useEffect(() => {
         <View>
             <View style={{ flexDirection: 'row', alignItems: 'center'}}>
             <Text style={{ fontSize: 24, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
-                Endroit
+                {fakedata.name}
             </Text>
             <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 8 }}>
+            <TouchableOpacity>
                 <View style={{ 
                     backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0',
                     paddingHorizontal: 12,
@@ -124,15 +167,17 @@ useEffect(() => {
                     borderRadius: 20,
                     marginTop: 16,
                 }}>
+                  
                     <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '600' }}>
-                        Catégorie
+                        {fakedata.category}
                     </Text>
+                  
                 </View>
-
+            </TouchableOpacity>
             </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, marginLeft:8 }}>
-                <View style={{width: 160, height: 36, borderRadius: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
+                <View style={{width: 170, height: 36, borderRadius: 16, backgroundColor: colorScheme === 'dark' ? '#222' : '#f0f0f0', marginRight: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, gap: 8 }}>
                 <TouchableOpacity 
                   style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }} 
                   onPress={() => setLiked(!liked)}
@@ -143,7 +188,7 @@ useEffect(() => {
                   color={liked ? (colorScheme === 'dark' ? '#4CAF50' : '#2E7D32') : (colorScheme === 'dark' ? 'white' : 'black')} 
                 />
                 <Text style={{ color: liked ? (colorScheme === 'dark' ? '#4CAF50' : '#2E7D32') : (colorScheme === 'dark' ? 'white' : 'black'), fontWeight: '600' }}>
-                  99%
+                    {liked ? "J'aime" : "Aimer"}
                 </Text>
                 </TouchableOpacity>
                 <View style={{ width: 1, height: 20, backgroundColor: colorScheme === 'dark' ? '#444' : '#ccc'}} />
@@ -157,8 +202,8 @@ useEffect(() => {
         </View>
         <View style={{width: '100%', alignItems: 'center', height: 100, backgroundColor: colorScheme == 'dark' ? '#222' : '#f0f0f0',borderRadius: 16, marginTop: 16 }}>
           <Text style={{ fontSize: 16, fontWeight: '400',  color: colorScheme === 'dark' ? 'white' : 'black', padding:16 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Text>
+            {fakedata.description}
+            </Text>
         </View>
         <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
             Localisation
@@ -168,8 +213,8 @@ useEffect(() => {
           <MapView 
             style={{ width: '100%', height: '100%' }}
             initialRegion={{
-              latitude: 45.5017,
-              longitude: -73.5673,
+              latitude: fakedata.localisation.latitude,
+              longitude: fakedata.localisation.longitude,
               latitudeDelta: 0.01,
               longitudeDelta: 0.01,
             }}
@@ -178,8 +223,8 @@ useEffect(() => {
           >
             <Marker 
               coordinate={{ latitude: 45.5017, longitude: -73.5673 }}
-              title="Endroit"
-              description="Lieu d'étude"
+              title={fakedata.name}
+              description={fakedata.category}
             />
           </MapView>
         </View>
@@ -225,9 +270,9 @@ useEffect(() => {
         <View>
             {/* Latest review card */}
             <ReviewCard
-              name={reviews[0].name}
-              text={reviews[0].text}
-              rating={reviews[0].rating}
+              name={fakedata.avis[0].name}
+              text={fakedata.avis[0].text}
+              rating={fakedata.avis[0].rating}
               memberSince="2024"
               showFullHeader={true}
               onViewMore={() => setModalVisible(true)}
@@ -256,7 +301,7 @@ useEffect(() => {
         <ReviewsModal
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
-          reviews={reviews}
+          reviews={fakedata.avis}
         />
     </ScrollView>
     </View>
