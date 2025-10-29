@@ -13,7 +13,12 @@ export default function MainScreen() {
   const isDark = colorScheme === 'dark';
 
   const [selected, setSelected] = useState<string>("Tous");
-  const places = [{ id: 1, category: "Cafés" }, { id: 2, category: "Bibliothèques" }, { id: 3, category: "Parcs" }, { id: 4, category: "Cafés" }, { id: 5, category: "Parcs" }, { id: 6, category: "Bibliothèques" }];
+  const places = [{ id: 1, category: "Cafés", name: "Café Central", location: "123 Rue Principale" },
+                  { id: 2, category: "Bibliothèques", name: "Bibliothèque Municipale", location: "456 Avenue des Livres" },
+                  { id: 3, category: "Parcs", name: "Parc de la Ville", location: "789 Boulevard Vert" },
+                  { id: 4, category: "Cafés", name: "Coffee House", location: "321 Rue du Café" },
+                  { id: 5, category: "Parcs", name: "Jardin Botanique", location: "654 Allée des Fleurs" },
+                  { id: 6, category: "Bibliothèques", name: "Centre de Documentation", location: "987 Place des Savoirs" }];
 
   const returnIconForCategory = (category: string) => {
     switch (category) {
@@ -44,13 +49,14 @@ export default function MainScreen() {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{ flexGrow: 0 }}
+          style={{ flexGrow: 0 , }}
         >
           <View style={{
             flexDirection: "row",
             paddingHorizontal: 10,
             paddingVertical: 20,
             gap: 10,
+            
           }}>
             {["Tous", "Cafés", "Bibliothèques", "Parcs"].map((category) => (
               <TouchableOpacity key={category} onPress={() => setSelected(category)}>
@@ -73,11 +79,13 @@ export default function MainScreen() {
             fontWeight: '700',
             marginLeft: 24,
             color: isDark ? 'white' : 'black',
+            
           }}>
             {selected !== "Tous" ? selected : "Lieux"} populaires
           </Text>
         </View>
       
+      <View style={{  marginBottom:50}} >
       {places.map((place) => (
         (place.category === selected || selected === "Tous") && (
         <TouchableOpacity key={place.id} onPress={() => {router.push({ pathname: "/place", params: { id: String(place.id) } });}}>
@@ -91,7 +99,11 @@ export default function MainScreen() {
             height: 200,
             backgroundColor: "#7f3b00ff"
           }}>
-            <Text style={{color:"white", fontWeight: '600'}}>Place {place.id}</Text>
+            <Text style={{color:"white", fontWeight: '800', fontSize:22}}>{place.name}</Text>
+            <View style={{ position: "absolute", bottom: 20, left: 20, flexDirection: "row", alignItems: "center" , gap: 8}}>
+            <Ionicons name="location" size={16} color="white" style={{  }} />
+            <Text style={{color:"white", fontWeight:'300'}}>{place.location}</Text>
+            </View>
             <View style={{ position: "absolute", right: 20, top: 20 , backgroundColor:"#00000050", padding:8, borderRadius:8}}>
             <Ionicons name={returnIconForCategory(place.category)} size={24} color="white"  />
             </View>
@@ -100,6 +112,7 @@ export default function MainScreen() {
         </TouchableOpacity>
         )
       ))}
+      </View>
       </ScrollView>
     </View>
   );
