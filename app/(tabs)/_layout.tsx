@@ -26,10 +26,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="favs"
+        name="promos"
         options={{
-          title: 'Favoris',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="heart" color={color} />,
+          title: 'Promotions',
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="pricetag" color={color} />,
         }}
       />
       <Tabs.Screen
