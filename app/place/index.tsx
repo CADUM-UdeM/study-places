@@ -288,13 +288,8 @@ useEffect(() => {
 
         </View>
 
-        <View style={{ marginBottom: 32 }}>
-            <Text style={{ fontSize: 20, fontWeight: '700', marginTop: 16, marginLeft:8, color: colorScheme === 'dark' ? 'white' : 'black' }}>
-                Achalandage
-            </Text>
-            <View style={{width: '100%', alignItems: 'center', height: 150, backgroundColor: colorScheme !== 'dark' ? '#000' : '#fff',borderRadius: 16, marginTop: 16 }}>
-            </View>
-
+        <View style={{ marginBottom: 42 }}>
+            
         </View>
         
         {/* Reviews Modal */}
