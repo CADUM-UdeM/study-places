@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import React, { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, useColorScheme, View } from "react-native";
@@ -12,8 +13,20 @@ export default function MainScreen() {
   const isDark = colorScheme === 'dark';
 
   const [selected, setSelected] = useState<string>("Tous");
-  const ids = ["1", "2", "3", "4"];
+  const places = [{ id: 1, category: "Cafés" }, { id: 2, category: "Bibliothèques" }, { id: 3, category: "Parcs" }, { id: 4, category: "Cafés" }, { id: 5, category: "Parcs" }, { id: 6, category: "Bibliothèques" }];
 
+  const returnIconForCategory = (category: string) => {
+    switch (category) {
+      case "Cafés":
+        return "cafe";
+      case "Bibliothèques":
+        return "book";
+      case "Parcs":
+        return "leaf";
+      default:
+        return "location";
+    }
+  };
 
 
 
@@ -64,9 +77,10 @@ export default function MainScreen() {
             {selected !== "Tous" ? selected : "Lieux"} populaires
           </Text>
         </View>
-
-      {ids.map((id) => (
-        <TouchableOpacity key={id} onPress={() => {router.push({ pathname: "/place", params: { id:id} });}}>
+      
+      {places.map((place) => (
+        (place.category === selected || selected === "Tous") && (
+        <TouchableOpacity key={place.id} onPress={() => {router.push({ pathname: "/place", params: { id: String(place.id) } });}}>
           <View style={{
             width: "90%",
             alignSelf: "center",
@@ -77,9 +91,14 @@ export default function MainScreen() {
             height: 200,
             backgroundColor: "#7f3b00ff"
           }}>
-            <Text style={{color:"white", fontWeight:600}}>Place {id}</Text>
+            <Text style={{color:"white", fontWeight: '600'}}>Place {place.id}</Text>
+            <View style={{ position: "absolute", right: 20, top: 20 , backgroundColor:"#00000050", padding:8, borderRadius:8}}>
+            <Ionicons name={returnIconForCategory(place.category)} size={24} color="white"  />
+            </View>
           </View>
+          
         </TouchableOpacity>
+        )
       ))}
       </ScrollView>
     </View>
