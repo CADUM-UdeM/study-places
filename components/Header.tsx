@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 24,
     position: "absolute",
-    top: 55,
+    top: 60,
     left: 85,
   },
   subText: {
