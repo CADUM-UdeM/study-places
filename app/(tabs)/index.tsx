@@ -86,8 +86,10 @@ export default function MainScreen() {
         </View>
       
       <View style={{  marginBottom:50}} >
+        
       {places.map((place) => (
         (place.category === selected || selected === "Tous") && (
+          
         <TouchableOpacity key={place.id} onPress={() => {router.push({ pathname: "/place", params: { id: String(place.id) } });}}>
           <View style={{
             width: "90%",
@@ -108,10 +110,10 @@ export default function MainScreen() {
             <Ionicons name={returnIconForCategory(place.category)} size={24} color="white"  />
             </View>
           </View>
-          
         </TouchableOpacity>
         )
       ))}
+      
       </View>
       </ScrollView>
     </View>
