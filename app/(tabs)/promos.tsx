@@ -1,71 +1,31 @@
+import DiscountButton from "@/components/DiscountButton";
 import Header from "@/components/Header";
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 
-export default function FavoritesPage(){
+export default function PromoPage(){
 
 
     return(
         <View style={{ flex: 1 }}>
             <Header userName="Kevin" welcomeMessage="Ravis de vous revoir !"/>
 
-            {/* Page après le header what?????*/ }
-            <View style={{flex: 1, paddingTop: 150 }}> 
+            {/* Lists de discounts*/ }
+            <ScrollView style={{flex: 1, paddingTop: 136}}
+            contentContainerStyle={{paddingBottom: 140}}> 
 
-                {/* Bouton discount */ }
-                <TouchableOpacity style={styles.container}>
+                <DiscountButton shopName="shop1" discount="20" date="20 Oct"/>
+                <DiscountButton shopName="shop2" discount="40" date="10 Sept"/>
+                <DiscountButton shopName="shop3" discount="10" date="12 Dec"/>
+                <DiscountButton shopName="shop4" discount="25" date="27 Aug"/>
+                <DiscountButton shopName="shop5" discount="20" date="20 Oct"/>
+                <DiscountButton shopName="shop6" discount="20" date="20 Oct"/>
+                <DiscountButton shopName="shop7" discount="20" date="20 Oct"/>
+                <DiscountButton shopName="shop8" discount="20" date="20 Oct"/>
 
-                        <View style={styles.button}>
-
-                            {/* Cercle pour le logo */ }
-                            <View style={styles.circle}>
-                                <Text>Logo</Text>
-                            </View>
-
-                            {/* Information sur le discount : shop name, discount et la date */ }
-                            <View style={{paddingHorizontal: '5%'}}>
-                                <Text style={{color: '#fffaf0', fontWeight: 'bold', fontSize: 20}}>Shop name</Text>
-                                <Text style={{color: '#fffaf0'}}>Discount</Text>
-                                <Text style={{color: '#fffaf0'}}>Date</Text>
-                            </View>
-
-                        </View>
-
-                </TouchableOpacity>
-
-            </View>
+            </ScrollView>
 
         </View>
-    )
+    );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-
-    button: {
-        flexDirection: 'row',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        backgroundColor: "#7f3b00ff",
-        borderRadius: 20,
-        height: "15%",
-        width: "90%", 
-        alignItems: 'center',
-    },
-
-    circle: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 65,
-        width: 65,
-        borderRadius: 70,
-        backgroundColor: "white",
-    },
-
-})
