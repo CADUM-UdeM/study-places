@@ -1,10 +1,11 @@
 
 
 // app/(tabs)/_layout.tsx
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const THEME = {
   bg: '#FFF6EF',
@@ -14,6 +15,17 @@ const THEME = {
 };
 
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+  const getTabBarHeight = () => {
+    if (Platform.OS === 'android') {
+      // If bottom inset is 0, device uses button navigation
+      // If bottom inset > 0, device uses gesture navigation
+      const hasButtonNavigation = insets.bottom === 0;
+      return hasButtonNavigation ? 60 : 55 + insets.bottom;
+    }
+    return undefined; // Let iOS handle it automatically
+  };
+
   return (
     <Tabs
       screenOptions={{
@@ -23,9 +35,10 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: THEME.bg,
           borderTopColor: THEME.border,
-          height: Platform.select({ ios: 68, default: 60 }),
-          paddingBottom: Platform.select({ ios: 12, default: 10 }),
-          paddingTop: 8,
+          ...Platform.select({
+            ios: { padding: 6, height: "10%" },
+            android: { padding: 8, height: getTabBarHeight(), paddingBottom: insets.bottom > 0 ? insets.bottom : 8 }
+          })
         },
         tabBarLabelStyle: {
           fontSize: 11,
