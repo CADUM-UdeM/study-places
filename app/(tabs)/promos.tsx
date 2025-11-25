@@ -1,6 +1,8 @@
 // app/(tabs)/promos.tsx
+import { getCafeName } from '@/data/places';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AppHeader from '../../components/AppHeader';
 
 const THEME = {
@@ -17,33 +19,36 @@ const PROMOS = [
     id: 1,
     title: '☕ -15% sur les lattés étudiants Café Central',
     description: 'Tous les jours après 16h avec une carte étudiante valide.',
-    cafe_name: 'cafe1',
+    cafe_id: 'constance',
     tag: 'Étudiants',
   },
   {
     id: 2,
     title: '📚 2h détude = 1 café filtre gratuit',
     description: 'Scanne le QR Deja Brew à lentrée de certains cafés partenaires.',
-    cafe_name: 'cafe2',
+    cafe_id: 'savsav',
     tag: 'Loyalty',
   },
   {
     id: 3,
     title: '🌙 Night owls -10% après 20h',
     description: 'Pour les cafés ouverts tard listés sur Deja Brew.',
-    cafe_name: 'cafe3',
+    cafe_id: 'savsav',
     tag: 'Night study',
   },
   {
     id: 4,
     title: '👯‍♀️ Study date : 2 pour 1',
     description: 'Un dessert offert à lachat de 2 boissons dans des spots sélectionnés.',
-    cafe_name: 'cafe4',
+    cafe_id: 'amea',
     tag: 'Friends',
   },
 ];
 
+
 export default function PromosScreen() {
+  const router = useRouter();
+  
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>
       <AppHeader rightIcon="pricetag-outline" />
@@ -59,14 +64,14 @@ export default function PromosScreen() {
         </Text>
 
         {PROMOS.map((promo) => (
-          <View key={promo.id} style={styles.card}>
+          <TouchableOpacity onPress={()=> router.push({pathname: '/place', params: {id: promo.cafe_id}})} key={promo.id} style={styles.card}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardTag}>{promo.tag}</Text>
-              <Text style={styles.name}>by {promo.cafe_name}</Text>
+              <Text style={styles.name}>by {getCafeName(promo.cafe_id)}</Text>
             </View>
             <Text style={styles.cardTitle}>{promo.title}</Text>
             <Text style={styles.cardText}>{promo.description}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

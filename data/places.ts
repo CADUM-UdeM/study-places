@@ -18,6 +18,12 @@ export type CafePlace = {
     walkMinutes?: number;                // temps de marche approximatif
     priceLevel?: '$' | '$$' | '$$$';     // niveau de prix
   };
+
+  // Fonction pour get cafe name par id
+  export const getCafeName = (cafeId: string) : string => {
+    const cafe = PLACES.find((place) => place.id === cafeId);
+    return cafe ? cafe.name : 'Café inconnu';
+  }
   
   export const PLACES: CafePlace[] = [
     {
