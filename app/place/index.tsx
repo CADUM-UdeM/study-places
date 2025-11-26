@@ -1,15 +1,15 @@
 // app/place/index.tsx
-import React, { useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import MapView, { Marker } from 'react-native-maps';
 import { Image } from 'expo-image';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
-import AppHeader from '../../components/AppHeader';
-import { PLACES, CafePlace } from '../../data/places';                   // ajuste si ton dossier est ailleurs
-import { ReviewCard } from '@/components/ReviewCard';       // comme dans ton ancien fichier
+import { ReviewCard } from '@/components/ReviewCard'; // comme dans ton ancien fichier
 import { ReviewsModal } from '@/components/ReviewsModal';
+import AppHeader from '../../components/AppHeader';
+import { PLACES } from '../../data/places'; // ajuste si ton dossier est ailleurs
 
 const THEME = {
   bg: '#FFF6EF',
