@@ -1,7 +1,7 @@
 // components/AppHeader.tsx
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const C = {
@@ -31,12 +31,6 @@ export default function AppHeader({ rightIcon = 'notifications-outline', onRight
           <Text style={styles.subtitle}>bean there, learned that.</Text>
         </View>
       </View>
-
-      {rightIcon && (
-        <Pressable onPress={onRightPress} hitSlop={8}>
-          <Ionicons name={rightIcon} size={22} style={styles.rightIcon} />
-        </Pressable>
-      )}
     </View>
   );
 }

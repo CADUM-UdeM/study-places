@@ -142,13 +142,9 @@ export default function Home() {
                 </Animated.View>
                 <View>
                   <Text style={styles.appName}>Find a spot to study</Text>
-                  <Text style={styles.tagline}>
-                    Montréal · {PLACES.length} curated cafés
-                  </Text>
                 </View>
               </View>
 
-              <Ionicons name="notifications-outline" size={22} color={THEME.text} />
             </View>
 
             {/* Search */}
@@ -262,7 +258,7 @@ export default function Home() {
           <Text style={styles.sectionSubtitle}>Meet classmates nearby</Text>
           <ScrollView
             horizontal
-            showsHorizontalScrollIndicator={false}
+            showsHorizontalScroll Indicator={false}
             contentContainerStyle={{ gap: 10, paddingVertical: 10 }}
           >
             {['IFT3355', 'Linear Algebra', 'Exam cram'].map((tag) => (
@@ -327,6 +323,129 @@ export default function Home() {
           ))}
         </View>
         */}
+
+
+
+
+        <View style={styles.box}>
+
+
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>Places</Text>
+            <TouchableOpacity>
+              <Text style={styles.link}>View all</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}>
+
+            {items.map((place) => (
+              <TouchableOpacity
+                key={place.id}
+                onPress={() => router.push({ pathname: '/place', params: { id: place.id } })}
+              >
+                <View style={[styles.brownCard, { backgroundColor: THEME.accentDark }]}>
+                  <Text style={styles.placeTitle}>{place.name}</Text>
+
+                  <View style={styles.placeLocationRow}>
+                    <Ionicons name="location-outline" size={16} color="#fff" />
+                    <Text style={styles.placeLocationText}>
+                      {place.district} · {place.address}
+                    </Text>
+                  </View>
+
+                  <View style={styles.placeIconBadge}>
+                    <Ionicons name="cafe" size={24} color="#fff" />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+
+          </ScrollView>
+
+
+        </View>
+
+        <View style={styles.box}>
+
+
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>Study Sessions</Text>
+            <TouchableOpacity>
+              <Text style={styles.link}>View all</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}>
+
+            {items.map((place) => (
+              <TouchableOpacity
+                key={place.id}
+                onPress={() => router.push({ pathname: '/place', params: { id: place.id } })}
+              >
+                <View style={[styles.brownCard, { backgroundColor: THEME.accentDark }]}>
+                  <Text style={styles.placeTitle}>{place.name}</Text>
+
+                  <View style={styles.placeLocationRow}>
+                    <Ionicons name="location-outline" size={16} color="#fff" />
+                    <Text style={styles.placeLocationText}>
+                      {place.district} · {place.address}
+                    </Text>
+                  </View>
+
+                  <View style={styles.placeIconBadge}>
+                    <Ionicons name="cafe" size={24} color="#fff" />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+
+          </ScrollView>
+
+
+        </View>
+
+        <View style={styles.box}>
+
+
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>Latest Promotions</Text>
+            <TouchableOpacity>
+              <Text style={styles.link}>View all</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}>
+
+            {items.map((place) => (
+              <TouchableOpacity
+                key={place.id}
+                onPress={() => router.push({ pathname: '/place', params: { id: place.id } })}
+              >
+                <View style={[styles.brownCard, { backgroundColor: THEME.accentDark }]}>
+                  <Text style={styles.placeTitle}>{place.name}</Text>
+
+                  <View style={styles.placeLocationRow}>
+                    <Ionicons name="location-outline" size={16} color="#fff" />
+                    <Text style={styles.placeLocationText}>
+                      {place.district} · {place.address}
+                    </Text>
+                  </View>
+
+                  <View style={styles.placeIconBadge}>
+                    <Ionicons name="cafe" size={24} color="#fff" />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+
+          </ScrollView>
+
+
+        </View>
+
+
+
       </ScrollView>
     </View>
   );
@@ -464,13 +583,14 @@ const styles = StyleSheet.create({
   },
 
   brownCard: {
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
     padding: 20,
     borderRadius: 22,
     marginTop: 16,
     height: 200,
     overflow: 'hidden',
+    minWidth: 300,
   },
   placeTitle: {
     color: '#fff',
@@ -494,4 +614,24 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
   },
+
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+  },
+
+  box: {
+    paddingVertical: 20,
+    backgroundColor: '#fff',
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: THEME.border,
+    marginTop: 16,
+    overflow: 'hidden',
+    marginHorizontal: 20,
+  },
+
+  title: { fontSize: 20, fontWeight: '800', color: THEME.text },
 });
