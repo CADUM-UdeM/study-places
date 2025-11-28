@@ -1,20 +1,19 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  Animated,
-  Easing,
-} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
-import { Image } from 'expo-image';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Animated,
+  Easing,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import AppHeader from '../../components/AppHeader';
-import { PLACES, CafePlace } from '../../data/places';
+import { CafePlace, PLACES } from '../../data/places';
 
 const THEME = {
   bg: '#FFF6EF',
@@ -170,7 +169,7 @@ export default function Home() {
               </TouchableOpacity>
             </View>
 
-            {/* Illustration tasse + livre */}
+            {/* Illustration tasse + livre 
             <View style={styles.heroIllustrationWrapper}>
               <Image
                 source={IMAGES.heroStudy}
@@ -178,12 +177,15 @@ export default function Home() {
                 style={styles.heroIllustration}
               />
             </View>
+            */}
 
             {/* main CTAs */}
             <TouchableOpacity style={styles.primaryCta} onPress={() => router.push('/quiz')}>
               <Text style={styles.primaryCtaText}>Find your study vibe</Text>
             </TouchableOpacity>
 
+
+            {/*
             <TouchableOpacity
               style={styles.secondaryCta}
               onPress={() => router.push('/session/new')}
@@ -192,6 +194,7 @@ export default function Home() {
                 Start a study session
               </Text>
             </TouchableOpacity>
+            */}
 
             {/* quick filters */}
             <ScrollView
@@ -211,12 +214,12 @@ export default function Home() {
           </View>
         </View>
 
-        {/* Featured */}
+        {/* Featured 
         <View style={[styles.padH, { marginTop: 16 }]}>
           <Text style={styles.sectionTitle}>Featured</Text>
         </View>
         <View style={[styles.padH, styles.row, { gap: 12, marginTop: 8 }]}>
-          {/* Lofi Focus */}
+          {/* Lofi Focus 
           <TouchableOpacity
             style={[styles.featuredCard, { backgroundColor: '#FBD3BF', borderColor: THEME.border }]}
             onPress={() => router.push('/quiz')}
@@ -231,7 +234,7 @@ export default function Home() {
             <Text style={styles.featuredSub}>Soft beats · Deep focus</Text>
           </TouchableOpacity>
 
-          {/* Ambient playlists */}
+          {/* Ambient playlists
           <TouchableOpacity
             style={[styles.featuredCard, { backgroundColor: '#F6EDE6', borderColor: THEME.border }]}
             onPress={() => router.push('/quiz')}
@@ -246,8 +249,9 @@ export default function Home() {
             <Text style={styles.featuredSub}>Rain, café & soft noise</Text>
           </TouchableOpacity>
         </View>
+      
 
-        {/* Match to Study */}
+        {/* Match to Study
         <View style={[styles.padH, { marginTop: 12 }]}>
           <View style={styles.rowBetween}>
             <Text style={styles.sectionTitle}>Match to Study</Text>
@@ -269,13 +273,16 @@ export default function Home() {
             ))}
           </ScrollView>
         </View>
+        */}
 
-        {/* Popular places */}
+
+        {/*
         <View style={[styles.padH, { marginTop: 8 }]}>
           <Text style={styles.sectionTitle}>
             {selected === 'Tous' ? 'Lieux populaires' : `${selected} spots populaires`}
           </Text>
         </View>
+         Popular places 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -295,7 +302,7 @@ export default function Home() {
           ))}
         </ScrollView>
 
-        {/* Brown place cards */}
+        {/* Brown place cards 
         <View style={{ marginBottom: 32 }}>
           {items.map((place) => (
             <TouchableOpacity
@@ -319,6 +326,7 @@ export default function Home() {
             </TouchableOpacity>
           ))}
         </View>
+        */}
       </ScrollView>
     </View>
   );
