@@ -1,6 +1,8 @@
 // app/(tabs)/promos.tsx
+import { getCafeName } from '@/data/places';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AppHeader from '../../components/AppHeader';
 
 const THEME = {
@@ -17,29 +19,38 @@ const PROMOS = [
     id: 1,
     title: '☕ -15% sur les lattés étudiants Café Central',
     description: 'Tous les jours après 16h avec une carte étudiante valide.',
+    cafe_id: 'constance',
     tag: 'Étudiants',
   },
   {
     id: 2,
     title: '📚 2h détude = 1 café filtre gratuit',
     description: 'Scanne le QR Deja Brew à lentrée de certains cafés partenaires.',
+    cafe_id: 'savsav',
     tag: 'Loyalty',
   },
   {
     id: 3,
     title: '🌙 Night owls -10% après 20h',
     description: 'Pour les cafés ouverts tard listés sur Deja Brew.',
+    cafe_id: 'savsav',
     tag: 'Night study',
   },
   {
     id: 4,
     title: '👯‍♀️ Study date : 2 pour 1',
     description: 'Un dessert offert à lachat de 2 boissons dans des spots sélectionnés.',
+    cafe_id: 'amea',
     tag: 'Friends',
   },
 ];
 
+// ADD TIME LIMIT
+// LIKE (REVIEW: THIS IS A GOOD DEAL) PROMO
+
 export default function PromosScreen() {
+  const router = useRouter();
+  
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>
       <AppHeader rightIcon="pricetag-outline" />
@@ -55,11 +66,14 @@ export default function PromosScreen() {
         </Text>
 
         {PROMOS.map((promo) => (
-          <View key={promo.id} style={styles.card}>
-            <Text style={styles.cardTag}>{promo.tag}</Text>
+          <TouchableOpacity onPress={()=> router.push({pathname: '/place', params: {id: promo.cafe_id}})} key={promo.id} style={styles.card}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.cardTag}>{promo.tag}</Text>
+              <Text style={styles.name}>by {getCafeName(promo.cafe_id)}</Text>
+            </View>
             <Text style={styles.cardTitle}>{promo.title}</Text>
             <Text style={styles.cardText}>{promo.description}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
@@ -78,6 +92,11 @@ const styles = StyleSheet.create({
     color: THEME.sub,
     marginBottom: 16,
   },
+  name: {
+    color: THEME.sub,
+    fontSize: 11,
+    fontWeight: '600',
+  },
   card: {
     backgroundColor: THEME.card,
     borderRadius: 16,
@@ -85,6 +104,12 @@ const styles = StyleSheet.create({
     borderColor: THEME.border,
     padding: 16,
     marginTop: 12,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 6
   },
   cardTag: {
     alignSelf: 'flex-start',
@@ -95,7 +120,7 @@ const styles = StyleSheet.create({
     color: THEME.accentDark,
     fontSize: 11,
     fontWeight: '700',
-    marginBottom: 6,
+    // marginBottom: 6,
   },
   cardTitle: {
     fontSize: 16,
