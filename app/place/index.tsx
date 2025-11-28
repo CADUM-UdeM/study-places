@@ -6,6 +6,7 @@ import React, { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
+import { IconCrowd } from '@/components/iconCrowd';
 import { ReviewCard } from '@/components/ReviewCard'; // comme dans ton ancien fichier
 import { ReviewsModal } from '@/components/ReviewsModal';
 import AppHeader from '../../components/AppHeader';
@@ -144,7 +145,7 @@ export default function PlaceScreen() {
                 <Text style={styles.typeChipText}>Study café</Text>
                 
               </View>
-              <Text>crowed</Text>
+              <IconCrowd crowdLVL={place.crowd}></IconCrowd>
             </View>
           </View>
         </View>
