@@ -45,6 +45,8 @@ const PROMOS = [
   },
 ];
 
+// ADD TIME LIMIT
+// LIKE (REVIEW: THIS IS A GOOD DEAL) PROMO
 
 export default function PromosScreen() {
   const router = useRouter();

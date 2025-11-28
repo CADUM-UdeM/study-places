@@ -142,6 +142,9 @@ export default function PlaceScreen() {
               <Text style={styles.placeAddress}>
                 {place.address}
               </Text>
+              {/* <View style={{flexDirection: 'row',  alignItems: 'center', gap: 4, paddingTop: 8}}> */}
+              {/*TODO: AFFICHER OPEN WHEN IT'S OPEN AND CLOSED WHEN IT'S CLOSED */}
+              <Text style={styles.hoursText}>Open/Closed • {place.hours}</Text>
             </View>
             {/* Study café tag and crowd icon */}
             <View>
@@ -174,10 +177,7 @@ export default function PlaceScreen() {
             <Text style={styles.quickInfoText}>Horaires :</Text>
           </View> */}
         </View>
-        <View style={{flexDirection: 'row',  alignItems: 'center', gap: 4, paddingTop: 8}}>
-          {/*TODO: AFFICHER OPEN WHEN IT'S OPEN AND CLOSED WHEN IT'S CLOSED */}
-          <Text style={styles.hoursText}>Open/Closed • {place.hours}</Text>
-        </View>
+        
 
         {/* VIBE */}
         <Text style={styles.sectionTitle}>Vibe</Text>
