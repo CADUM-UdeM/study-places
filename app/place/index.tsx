@@ -6,7 +6,6 @@ import React, { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import { IconCrowd } from '@/components/iconCrowd';
 import { ReviewCard } from '@/components/ReviewCard'; // comme dans ton ancien fichier
 import { ReviewsModal } from '@/components/ReviewsModal';
 import AppHeader from '../../components/AppHeader';
@@ -19,6 +18,10 @@ const THEME = {
   card: '#FFFFFF',
   border: '#E8D9D1',
   accentDark: '#7F3B00',
+  green: '#6B8E23',      // Olive green (naturel, terreux)
+  greenLight: '#9CAF88', // Version plus claire
+  red: '#B8503C',        // Terre cuite/terracotta
+  redLight: '#D4846F',   // Version plus claire
 };
 
 // petite fonction pour donner une image par café
@@ -131,21 +134,21 @@ export default function PlaceScreen() {
         </View>
 
         {/* HEADER TEXTE */}
-        <View style={{ marginTop: 14 }}>
+        <View style={{ marginTop: 14}}>
           <View style={styles.titleRow}>
+            {/* view cafe name and address */}
             <View style={{ flex: 1 }}>
               <Text style={styles.placeName}>{place.name}</Text>
               <Text style={styles.placeAddress}>
                 {place.address}
               </Text>
             </View>
+            {/* Study café tag and crowd icon */}
             <View>
               <View style={styles.typeChip}>
                 <Ionicons name="cafe-outline" size={16} color={THEME.accentDark} />
                 <Text style={styles.typeChipText}>Study café</Text>
-                
               </View>
-              <IconCrowd crowdLVL={place.crowd}></IconCrowd>
             </View>
           </View>
         </View>
@@ -330,7 +333,8 @@ const styles = StyleSheet.create({
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: 8,
+
+    // columnGap: 8,
   },
   placeName: {
     fontSize: 24,
