@@ -138,10 +138,13 @@ export default function PlaceScreen() {
                 {place.address}
               </Text>
             </View>
-
-            <View style={styles.typeChip}>
-              <Ionicons name="cafe-outline" size={16} color={THEME.accentDark} />
-              <Text style={styles.typeChipText}>Study café</Text>
+            <View>
+              <View style={styles.typeChip}>
+                <Ionicons name="cafe-outline" size={16} color={THEME.accentDark} />
+                <Text style={styles.typeChipText}>Study café</Text>
+                
+              </View>
+              <Text>crowed</Text>
             </View>
           </View>
         </View>
@@ -162,16 +165,29 @@ export default function PlaceScreen() {
               {place.outlets ? 'Beaucoup de prises' : 'Peu de prises'}
             </Text>
           </View>
-          <View style={styles.quickInfoChip}>
+          {/* <View style={styles.quickInfoChip}>
             <Ionicons name="time-outline" size={16} color={THEME.accentDark} />
             <Text style={styles.quickInfoText}>Horaires :</Text>
-          </View>
+          </View> */}
         </View>
-        <Text style={styles.hoursText}>{place.hours}</Text>
+        <View style={{flexDirection: 'row',  alignItems: 'center', gap: 4, paddingTop: 8}}>
+          {/*TODO: AFFICHER OPEN WHEN IT'S OPEN AND CLOSED WHEN IT'S CLOSED */}
+          <Text style={styles.hoursText}>Open/Closed • {place.hours}</Text>
+        </View>
 
         {/* VIBE */}
         <Text style={styles.sectionTitle}>Vibe</Text>
         <Text style={styles.vibeText}>{place.vibe}</Text>
+
+        {/* TAGS DEJA BREW 
+        <Text style={styles.sectionTitle}>Tags Deja Brew</Text> */}
+        <View style={styles.tagsRow}>
+          {place.tags.map((tag) => (
+            <View key={tag} style={styles.tagChip}>
+              <Text style={styles.tagText}>{tag}</Text>
+            </View>
+          ))}
+        </View>
 
         {/* AMBIANCE POUR ÉTUDIER */}
         <Text style={styles.sectionTitle}>Ambiance pour étudier</Text>
@@ -192,7 +208,7 @@ export default function PlaceScreen() {
           ))}
         </View>
 
-        {/* TAGS DEJA BREW */}
+        {/* TAGS DEJA BREW
         <Text style={styles.sectionTitle}>Tags Deja Brew</Text>
         <View style={styles.tagsRow}>
           {place.tags.map((tag) => (
@@ -200,7 +216,7 @@ export default function PlaceScreen() {
               <Text style={styles.tagText}>{tag}</Text>
             </View>
           ))}
-        </View>
+        </View> */}
 
         {/* MAP MINIATURE */}
         {place.coords && (
