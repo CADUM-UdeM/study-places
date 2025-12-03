@@ -11,6 +11,7 @@ export type CafePlace = {
     food: string[];
     hours: string;
     tags: string[];
+    crowd: string;
     coords?: { latitude: number; longitude: number }; // facultatif
   
     // 🔽 nouveaux champs "mini résumé"
@@ -18,6 +19,12 @@ export type CafePlace = {
     walkMinutes?: number;                // temps de marche approximatif
     priceLevel?: '$' | '$$' | '$$$';     // niveau de prix
   };
+
+  // Fonction pour get cafe name par id
+  export const getCafeName = (cafeId: string) : string => {
+    const cafe = PLACES.find((place) => place.id === cafeId);
+    return cafe ? cafe.name : 'Café inconnu';
+  }
   
   export const PLACES: CafePlace[] = [
     {
@@ -37,6 +44,7 @@ export type CafePlace = {
       food: ["Brunch", "Bols", "Pâtisseries", "Café de spécialité"],
       hours: "8h–16h semaine, 9h–16h fin de semaine",
       tags: ["Aesthetic", "Group work", "Cowork-friendly", "Saint-Henri"],
+      crowd: 'low',
       coords: { latitude: 45.47957, longitude: -73.58614 },
   
       rating: 4.8,
@@ -59,6 +67,7 @@ export type CafePlace = {
       food: ["Matcha", "Tiramisu latte", "Bubble tea", "Desserts asiatiques"],
       hours: "11h–20h tous les jours",
       tags: ["Bubble tea", "Concordia", "Cozy corner", "Dessert date"],
+      crowd: 'moderate',
       coords: { latitude: 45.49743, longitude: -73.57882 },
   
       rating: 4.7,
@@ -81,6 +90,7 @@ export type CafePlace = {
       food: ["Viennoiseries", "Croque-monsieur", "Brunch français", "Desserts"],
       hours: "Cuisine 16h-19h30 selon jours, café ~17h–20h",
       tags: ["French café", "Chic", "Before-show study"],
+      crowd: 'high',
       coords: { latitude: 45.50863, longitude: -73.56547 },
   
       rating: 4.6,
@@ -104,6 +114,7 @@ export type CafePlace = {
       food: ["Café 3e vague", "Pâtisseries (Hof Kelsten)", "Lunchs"],
       hours: "Ouvert 7/7, ~8h–16h à 8h–21h selon jours",
       tags: ["Coworking", "Iconic", "Long sessions"],
+      crowd: 'high',
       coords: { latitude: 45.50363, longitude: -73.55953 },
   
       rating: 4.7,
@@ -126,6 +137,7 @@ export type CafePlace = {
       food: ["Café Pista", "Snacks artisanaux", "Options vegan & SG"],
       hours: "Horaires variables selon saison/événements",
       tags: ["Public space", "Calm", "Study with view"],
+      crowd: 'moderate',
       coords: { latitude: 45.50882, longitude: -73.56629 },
   
       rating: 4.5,
@@ -148,6 +160,7 @@ export type CafePlace = {
       food: ["Brunch", "Salades", "Tartines", "Pâtisseries"],
       hours: "Variable selon succursale",
       tags: ["Brunch", "Cute pics", "Trendy"],
+      crowd: 'low',
       coords: { latitude: 45.5038, longitude: -73.5598 }, // Notre-Dame location
   
       rating: 4.4,
@@ -171,6 +184,7 @@ export type CafePlace = {
       food: ["Café", "Lunchs", "Collations"],
       hours: "Jours de semaine principalement",
       tags: ["Downtown", "McGill-friendly", "Long laptop sessions"],
+      crowd: 'low',
       coords: { latitude: 45.50241, longitude: -73.57835 },
   
       rating: 4.6,
