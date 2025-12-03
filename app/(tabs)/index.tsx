@@ -4,12 +4,13 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   Easing,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 
 import AppHeader from '../../components/AppHeader';
@@ -165,7 +166,7 @@ export default function Home() {
               </TouchableOpacity>
             </View>
 
-            {/* Illustration tasse + livre 
+            {/* Illustration tasse + livre*/}
             <View style={styles.heroIllustrationWrapper}>
               <Image
                 source={IMAGES.heroStudy}
@@ -173,7 +174,6 @@ export default function Home() {
                 style={styles.heroIllustration}
               />
             </View>
-            */}
 
             {/* main CTAs */}
             <TouchableOpacity style={styles.primaryCta} onPress={() => router.push('/quiz')}>
@@ -624,7 +624,7 @@ const styles = StyleSheet.create({
 
   box: {
     paddingVertical: 20,
-    backgroundColor: '#fff',
+    backgroundColor: THEME.card,
     borderRadius: 22,
     borderWidth: 1,
     borderColor: THEME.border,
