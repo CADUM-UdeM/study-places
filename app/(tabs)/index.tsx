@@ -125,7 +125,7 @@ export default function Home() {
 
       <ScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingBottom: 120, paddingTop: 12 }}
+        contentContainerStyle={{ paddingBottom: 10, paddingTop: 12 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Hero card */}
@@ -327,6 +327,7 @@ export default function Home() {
 
 
 
+
         <View style={styles.box}>
 
 
@@ -337,7 +338,7 @@ export default function Home() {
             </TouchableOpacity>
           </View>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 20 }}>
 
             {items.map((place) => (
               <TouchableOpacity
@@ -376,7 +377,7 @@ export default function Home() {
             </TouchableOpacity>
           </View>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 20 }}>
 
             {items.map((place) => (
               <TouchableOpacity
@@ -415,7 +416,7 @@ export default function Home() {
             </TouchableOpacity>
           </View>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingHorizontal: 20 }}>
 
             {items.map((place) => (
               <TouchableOpacity
@@ -619,18 +620,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 24,
+    paddingLeft: 25,
+    paddingRight: 16,
   },
 
   box: {
     paddingVertical: 20,
-    backgroundColor: THEME.card,
+    //backgroundColor: THEME.card,
     borderRadius: 22,
-    borderWidth: 1,
+    //borderWidth: 1,
     borderColor: THEME.border,
-    marginTop: 16,
+
     overflow: 'hidden',
-    marginHorizontal: 20,
+    //marginHorizontal: 20,
   },
 
   title: { fontSize: 20, fontWeight: '800', color: THEME.text },
