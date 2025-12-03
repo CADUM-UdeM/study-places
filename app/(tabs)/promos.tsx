@@ -20,7 +20,9 @@ const PROMOS = [
     title: '☕ -15% sur les lattés étudiants Café Central',
     description: 'Tous les jours après 16h avec une carte étudiante valide.',
     cafe_id: 'constance',
-    tag: 'Étudiants',
+    tag: 'Étudiants', 
+    promoStart: '2025-02-01T00:00:00Z',
+    promoEnd: '2025-02-15T23:59:59Z',
   },
   {
     id: 2,
@@ -28,6 +30,8 @@ const PROMOS = [
     description: 'Scanne le QR Deja Brew à lentrée de certains cafés partenaires.',
     cafe_id: 'savsav',
     tag: 'Loyalty',
+    promoStart: '2025-03-01T00:00:00Z',
+    promoEnd: '2025-03-15T23:59:59Z',
   },
   {
     id: 3,
@@ -35,6 +39,8 @@ const PROMOS = [
     description: 'Pour les cafés ouverts tard listés sur Deja Brew.',
     cafe_id: 'savsav',
     tag: 'Night study',
+    promoStart: '2025-05-21T00:00:00Z',
+    promoEnd: '2025-06-15T23:59:59Z',
   },
   {
     id: 4,
@@ -42,14 +48,24 @@ const PROMOS = [
     description: 'Un dessert offert à lachat de 2 boissons dans des spots sélectionnés.',
     cafe_id: 'amea',
     tag: 'Friends',
+    promoStart: '2025-01-11T00:00:00Z',
+    promoEnd: '2025-02-25T23:59:59Z',
   },
 ];
+
+const formatDateEN = (iso : string) => {
+  return new Date(iso).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'long',
+  });
+}; 
 
 // ADD TIME LIMIT
 // LIKE (REVIEW: THIS IS A GOOD DEAL) PROMO
 
 export default function PromosScreen() {
   const router = useRouter();
+
   
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>
@@ -73,6 +89,15 @@ export default function PromosScreen() {
             </View>
             <Text style={styles.cardTitle}>{promo.title}</Text>
             <Text style={styles.cardText}>{promo.description}</Text>
+            {/* Time limit date */}
+            <View style={styles.cardBottom}>
+              <Text style={styles.name}>from {formatDateEN(promo.promoStart)} to {formatDateEN(promo.promoEnd)}</Text>
+              {/* Heart button et like number */}
+              <View style={{flexDirection: 'row', gap : 4}}>
+                <Text>heart button</Text>
+                <Text>number</Text>
+              </View>
+            </View> 
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -132,4 +157,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: THEME.text,
   },
+  cardBottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', 
+    paddingTop: 4,
+  }
 });
