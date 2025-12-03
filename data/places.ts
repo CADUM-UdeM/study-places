@@ -1,5 +1,7 @@
 // data/places.ts
 export type CafePlace = {
+    longitude: boolean;
+    latitude: boolean;
     id: string;
     name: string;
     address: string;
