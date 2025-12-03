@@ -1,4 +1,5 @@
 // app/(tabs)/promos.tsx
+import LikeButton from '@/components/likeButton';
 import { getCafeName } from '@/data/places';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -93,10 +94,7 @@ export default function PromosScreen() {
             <View style={styles.cardBottom}>
               <Text style={styles.name}>from {formatDateEN(promo.promoStart)} to {formatDateEN(promo.promoEnd)}</Text>
               {/* Heart button et like number */}
-              <View style={{flexDirection: 'row', gap : 4}}>
-                <Text>heart button</Text>
-                <Text>number</Text>
-              </View>
+              <LikeButton></LikeButton>
             </View> 
           </TouchableOpacity>
         ))}
@@ -159,6 +157,7 @@ const styles = StyleSheet.create({
   },
   cardBottom: {
     flexDirection: 'row',
+    alignContent: 'center',
     justifyContent: 'space-between', 
     paddingTop: 4,
   }
