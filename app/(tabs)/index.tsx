@@ -324,6 +324,9 @@ export default function Home() {
         </View>
         */}
 
+        {/* just to separate a little bit*/}
+
+        <View style={{ marginBottom: 16 }} />
 
 
 
@@ -625,7 +628,7 @@ const styles = StyleSheet.create({
   },
 
   box: {
-    paddingVertical: 20,
+    paddingVertical: 10,
     //backgroundColor: THEME.card,
     borderRadius: 22,
     //borderWidth: 1,
